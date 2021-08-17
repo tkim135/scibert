@@ -1,0 +1,3 @@
+[submodule "chemprot_venv/src/allennlp"]
+	path = chemprot_venv/src/allennlp
+	url = https://github.com/allenai/allennlp.git
