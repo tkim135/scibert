@@ -5,11 +5,10 @@
   "dataset_reader": {
     "type": "classification_dataset_reader",
      "token_indexers": {
-      "bert": {
-          "type": "bert-pretrained",
-          "pretrained_model": std.extVar("BERT_VOCAB"),
-          "do_lowercase": std.extVar("IS_LOWERCASE"),
-          "use_starting_offsets": true
+      "gpt": {
+          "type": "pretrained_transformer",
+          "model_name": "gpt2",
+          "do_lowercase": std.extVar("IS_LOWERCASE")
       }
     }
   },
@@ -22,15 +21,10 @@
     "verbose_metrics": true,
     "text_field_embedder": {
         "allow_unmatched_keys": true,
-        "embedder_to_indexer_map": {
-            "bert": ["bert", "bert-offsets"]
-        },
         "token_embedders": {
-            "bert": {
-                "type": "bert-pretrained",
-                "pretrained_model": std.extVar("BERT_WEIGHTS"),
-                "requires_grad": 'all',
-                "top_layer_only": true
+            "gpt": {
+                "type": "pretrained_transformer",
+                "model_name": "gpt2"
             }
         }
     }
@@ -44,10 +38,7 @@
   "trainer": {
     "optimizer": {
         "type": "huggingface_adamw",
-        "lr": std.extVar("LEARNING_RATE"),
-        "parameter_groups": [
-          [["bias", "LayerNorm.bias", "LayerNorm.weight", "layer_norm.weight"], {"weight_decay": 0.0}]
-        ]
+        "lr": std.extVar("LEARNING_RATE")
     },
     "validation_metric": "+average_F1",
     "num_serialized_models_to_keep": 3,
