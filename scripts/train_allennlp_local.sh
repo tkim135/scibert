@@ -29,7 +29,7 @@ export TEST_PATH=data/$TASK/$DATASET/test.txt
 export CUDA_DEVICE=0
 
 export GRAD_ACCUM_BATCH_SIZE=32
-export NUM_EPOCHS=8
-export LEARNING_RATE=1e-5
+export NUM_EPOCHS=9
+export LEARNING_RATE=1e-4
 
 python -m allennlp.run train $CONFIG_FILE  --include-package scibert -s "$@"

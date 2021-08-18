@@ -17,13 +17,13 @@
   "test_data_path": std.extVar("TEST_PATH"),
   "evaluate_on_test": true,
   "model": {
-    "type": "bert_text_classifier",
+    "type": "gpt_text_classifier",
     "verbose_metrics": true,
     "text_field_embedder": {
         "allow_unmatched_keys": true,
         "token_embedders": {
             "gpt": {
-                "type": "pretrained_transformer",
+                "type": "gpt_pretrained",
                 "model_name": "gpt2"
             }
         }
