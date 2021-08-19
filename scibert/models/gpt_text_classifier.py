@@ -72,14 +72,12 @@ class GptTextClassifier(TextClassifier):
         loss : torch.FloatTensor, optional
             A scalar loss to be optimised.
         """
-        embedded_text = self.text_field_embedder(text)
-        pooled = self.dropout(embedded_text)
-        logits = self.classifier_feedforward(pooled)
+        logits = self.text_field_embedder(text, gpt=True)
         class_probs = F.softmax(logits, dim=1)
 
         output_dict = {"logits": logits}
         if label is not None:
-            loss = self.loss(logits, label)
+            loss = self.loss(logits.view(-1, self.num_classes), label.view(-1))
             output_dict["loss"] = loss
 
             # compute F1 per label
